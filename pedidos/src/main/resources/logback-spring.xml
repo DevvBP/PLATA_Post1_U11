@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Propiedades de Logging -->
+    <property name="LOGS_DIR" value="logs" />
+    <property name="LOG_FILE_NAME" value="pedidos" />
+
+    <!-- Patron de Formato para Consola -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n" />
+
+    <!-- Patron de Formato para Archivo -->
+    <property name="FILE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+
+    <!-- Appender para Consola -->
+    <appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- Appender con Rotacion de Archivo Diario -->
+    <appender name="RollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_DIR}/${LOG_FILE_NAME}.log</file>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Rotacion diaria con patron de fecha -->
+            <fileNamePattern>${LOGS_DIR}/${LOG_FILE_NAME}-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- Conservar 30 dias de historico -->
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <!-- Logger Especifico para el Paquete de la Aplicacion -->
+    <logger name="com.tienda.pedidos" level="DEBUG" additivity="false">
+        <appender-ref ref="ConsoleAppender" />
+        <appender-ref ref="RollingFileAppender" />
+    </logger>
+
+    <!-- Logger Root -->
+    <root level="INFO">
+        <appender-ref ref="ConsoleAppender" />
+        <appender-ref ref="RollingFileAppender" />
+    </root>
+
+</configuration>

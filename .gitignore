@@ -1,0 +1,30 @@
+# Archivos compilados y empaquetados
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Logs de ejecucion
+logs/
+*.log
+pedidos/logs/*.log
+!pedidos/logs/.gitkeep
+
+# IDEs y Editores
+.idea/
+*.iml
+.vscode/
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+
+# Archivos del Sistema Operativo
+Thumbs.db
+.DS_Store
+
+# Archivos temporales
+*.tmp
+*.bak
